@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import SummaryModal from "./SummaryModal";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/todos";
+const API_URL = "http://localhost:5000/api/todos";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -467,9 +467,10 @@ function App() {
                       <div className="task-content">
                         <h4>{todo.title}</h4>
 
-                        <span className={"todo-status-badge " + (todo.completed ? "completed" : "pending")}>
-                          <span className="todo-status-dot"></span>
-                          {todo.completed ? "Completed" : "Pending"}
+                        <span>
+                          {todo.completed
+                            ? "Completed"
+                            : "In progress"}
                         </span>
                       </div>
 
@@ -502,8 +503,6 @@ function App() {
 }
 
 export default App;
-
-
 
 
 

@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import SummaryModal from "./SummaryModal";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/todos";
+const API_URL = "http://localhost:5000/api/todos";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -11,7 +10,6 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
-  const [summaryType, setSummaryType] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -283,7 +281,7 @@ function App() {
             <div className="stat-icon total-icon">T</div>
 
             <div>
-              <span>Total Tasks</span><button type="button" className="summary-link" onClick={() => setSummaryType("total")}>View summary</button>
+              <span>Total Tasks</span>
               <strong>{todos.length}</strong>
             </div>
           </div>
@@ -292,7 +290,7 @@ function App() {
             <div className="stat-icon pending-icon">P</div>
 
             <div>
-              <span>Pending</span><button type="button" className="summary-link" onClick={() => setSummaryType("pending")}>View summary</button>
+              <span>Pending</span>
               <strong>{pendingCount}</strong>
             </div>
           </div>
@@ -301,7 +299,7 @@ function App() {
             <div className="stat-icon completed-icon">?</div>
 
             <div>
-              <span>Completed</span><button type="button" className="summary-link" onClick={() => setSummaryType("completed")}>View summary</button>
+              <span>Completed</span>
               <strong>{completedCount}</strong>
             </div>
           </div>
@@ -467,9 +465,10 @@ function App() {
                       <div className="task-content">
                         <h4>{todo.title}</h4>
 
-                        <span className={"todo-status-badge " + (todo.completed ? "completed" : "pending")}>
-                          <span className="todo-status-dot"></span>
-                          {todo.completed ? "Completed" : "Pending"}
+                        <span>
+                          {todo.completed
+                            ? "Completed"
+                            : "In progress"}
                         </span>
                       </div>
 
@@ -496,20 +495,12 @@ function App() {
           <span>Built with React + Node.js + MongoDB</span>
         </footer>
 
-        <SummaryModal type={summaryType} todos={todos} pendingCount={pendingCount} completedCount={completedCount} onClose={() => setSummaryType(null)} />    </main>
+      </main>
     </div>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-
 
 
 
