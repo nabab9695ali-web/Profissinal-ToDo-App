@@ -2,7 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dns = require("dns");
-require("dotenv").config();
+const fs = require("fs");
+
+const envPath = fs.existsSync("/etc/secrets/.env")
+  ? "/etc/secrets/.env"
+  : ".env";
+
+require("dotenv").config({ path: envPath });
 
 if (process.env.NODE_ENV !== "production") {
   dns.setServers(["8.8.8.8", "1.1.1.1"]);
@@ -34,5 +40,6 @@ mongoose
   .catch((error) => {
     console.log("MongoDB Connection Error:", error.message);
   });
+
 
 
