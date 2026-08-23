@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI || process.env.MONGO_URL || process.env.Key)
   .then(() => {
     console.log("MongoDB Connected");
 
@@ -34,4 +34,5 @@ mongoose
   .catch((error) => {
     console.log("MongoDB Connection Error:", error.message);
   });
+
 
